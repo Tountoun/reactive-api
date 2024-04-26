@@ -3,14 +3,14 @@ spring:
     name: spring-reactive application
   r2dbc:
     username: postgres
-    password: ${PASSWORD}
+    password: litt
     name: flex_bk_db
     url: r2dbc:postgresql://localhost:5432/${spring.r2dbc.name}
   profiles:
     active: dev
   flyway:
     user: postgres
-    password: ${PASSWORD}
+    password: litt
     url: jdbc:postgresql://localhost:5432/${spring.r2dbc.name}
   jpa:
     hibernate:
