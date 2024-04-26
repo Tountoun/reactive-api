@@ -1,5 +1,6 @@
 package com.gofar.springreactive;
 
+import com.gofar.springreactive.client.ReactiveClient;
 import com.gofar.springreactive.entity.Transaction;
 import com.gofar.springreactive.service.ITransactionService;
 import org.springframework.boot.ApplicationRunner;
@@ -17,7 +18,7 @@ public class SpringReactiveApplication {
 	}
 
 	@Bean
-	ApplicationRunner runner(ITransactionService transactionService) {
+	ApplicationRunner runner(ITransactionService transactionService, ReactiveClient reactiveClient) {
 		return args -> {
 			for (int i = 0; i < 20; i++) {
 				transactionService.saveTransaction(
@@ -30,6 +31,7 @@ public class SpringReactiveApplication {
 								.build()
 				).subscribe();
 			}
+			System.out.println("Reference of the transaction with id 5" + reactiveClient.getTransactionReferenceById(5).block());
 		};
 	}
 }
