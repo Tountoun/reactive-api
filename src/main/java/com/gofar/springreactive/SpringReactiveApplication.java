@@ -6,6 +6,7 @@ import com.gofar.springreactive.service.ITransactionService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class SpringReactiveApplication {
 	}
 
 	@Bean
+	@ConditionalOnProperty(name = "beans.runner", havingValue = "true")
 	ApplicationRunner runner(ITransactionService transactionService, ReactiveClient reactiveClient) {
 		return args -> {
 			for (int i = 0; i < 20; i++) {
