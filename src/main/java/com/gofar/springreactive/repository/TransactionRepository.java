@@ -19,4 +19,8 @@ public interface TransactionRepository extends ReactiveCrudRepository<Transactio
     Flux<Transaction> findAllByMode(String mode);
 
     Flux<Transaction> findAllByTransactionDate(LocalDate date);
+
+    Mono<Void> deleteByReference(String reference);
+
+    Mono<Boolean> existsByReference(String reference);
 }

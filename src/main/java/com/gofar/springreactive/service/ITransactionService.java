@@ -24,4 +24,6 @@ public interface ITransactionService {
     Flux<Transaction> getTransactionsByDate(String startDate, String endDate);
 
     Flux<Transaction> filter(TransactionFilter filter);
+
+    Mono<Void> deleteTransactionByReference(String reference);
 }

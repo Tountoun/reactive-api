@@ -104,5 +104,21 @@ public class TransactionService implements ITransactionService {
         return null;
     }
 
+    /**
+     * @param reference the reference of the transaction to delete
+     * @return a mono of boolean whether at least one row was removed
+     */
+    @Override
+    public Mono<Void> deleteTransactionByReference(String reference) {
+        return transactionRepository.existsByReference(reference)
+                .flatMap(exists -> {
+                   if (exists) {
+                       return transactionRepository.deleteByReference(reference);
+                   } else {
+                       return Mono.empty();
+                   }
+                });
+    }
+
 
 }

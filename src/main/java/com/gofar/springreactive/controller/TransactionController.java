@@ -46,4 +46,9 @@ public class TransactionController {
     public Flux<Transaction> getTransactionByStatus(@PathVariable("status") String status) {
         return transactionService.getTransactionsByStatus(status);
     }
+
+    @DeleteMapping("/{reference}")
+    public Mono<Void> deleteTransaction(@PathVariable("reference") String reference) {
+        return transactionService.deleteTransactionByReference(reference);
+    }
 }
