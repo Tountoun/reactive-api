@@ -4,6 +4,15 @@
 This project is a reactive rest api about transactions operations. It has the
 minimum exchanges with a Rest API implemented.
 
+## Features
+- Make a transaction
+- Get all transactions
+- Get a transaction by its id
+- Get a transaction by its reference
+- Filter transactions by status
+- Filter transactions by mode
+- Delete transaction by reference
+
 ## Usage
 
 1. Clone the project
@@ -14,8 +23,8 @@ minimum exchanges with a Rest API implemented.
 
 3. Install dependencies by running `mvn clean install`
 
-4. Set up the database using docker compose
-In the project directory, run in the terminal: `docker compose up -d`
+4. Set up the database using docker compose.
+In the project directory, run in the terminal: `docker-compose up -d`
 
 5. Run the project
 
