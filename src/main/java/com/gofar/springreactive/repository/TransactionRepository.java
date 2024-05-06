@@ -1,6 +1,8 @@
 package com.gofar.springreactive.repository;
 
 import com.gofar.springreactive.entity.Transaction;
+import com.gofar.springreactive.utils.TransactionMode;
+import com.gofar.springreactive.utils.TransactionStatus;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -14,9 +16,9 @@ public interface TransactionRepository extends ReactiveCrudRepository<Transactio
 
     Mono<Transaction> findByReference(String reference);
 
-    Flux<Transaction> findAllByStatus(String status);
+    Flux<Transaction> findAllByStatus(TransactionStatus status);
 
-    Flux<Transaction> findAllByMode(String mode);
+    Flux<Transaction> findAllByMode(TransactionMode mode);
 
     Flux<Transaction> findAllByTransactionDate(LocalDate date);
 

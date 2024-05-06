@@ -4,6 +4,8 @@ import com.gofar.springreactive.entity.Transaction;
 import com.gofar.springreactive.repository.TransactionRepository;
 import com.gofar.springreactive.service.ITransactionService;
 import com.gofar.springreactive.utils.TransactionFilter;
+import com.gofar.springreactive.utils.TransactionMode;
+import com.gofar.springreactive.utils.TransactionStatus;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -60,7 +62,7 @@ public class TransactionService implements ITransactionService {
      * @return a stream of transactions with a given mode
      */
     @Override
-    public Flux<Transaction> getTransactionsByMode(String mode) {
+    public Flux<Transaction> getTransactionsByMode(TransactionMode mode) {
         return transactionRepository.findAllByMode(mode);
     }
 
@@ -69,7 +71,7 @@ public class TransactionService implements ITransactionService {
      * @return a stream of transactions with a given status
      */
     @Override
-    public Flux<Transaction> getTransactionsByStatus(String status) {
+    public Flux<Transaction> getTransactionsByStatus(TransactionStatus status) {
         return transactionRepository.findAllByStatus(status);
     }
 

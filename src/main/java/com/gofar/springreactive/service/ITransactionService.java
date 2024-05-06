@@ -2,6 +2,8 @@ package com.gofar.springreactive.service;
 
 import com.gofar.springreactive.entity.Transaction;
 import com.gofar.springreactive.utils.TransactionFilter;
+import com.gofar.springreactive.utils.TransactionMode;
+import com.gofar.springreactive.utils.TransactionStatus;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -15,9 +17,9 @@ public interface ITransactionService {
 
     Flux<Transaction> getAllTransactions();
 
-    Flux<Transaction> getTransactionsByMode(String mode);
+    Flux<Transaction> getTransactionsByMode(TransactionMode mode);
 
-    Flux<Transaction> getTransactionsByStatus(String status);
+    Flux<Transaction> getTransactionsByStatus(TransactionStatus status);
 
     Flux<Transaction> getTransactionsByDate(String date);
 

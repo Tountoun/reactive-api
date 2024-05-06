@@ -2,6 +2,8 @@ package com.gofar.springreactive.controller;
 
 import com.gofar.springreactive.entity.Transaction;
 import com.gofar.springreactive.service.ITransactionService;
+import com.gofar.springreactive.utils.TransactionMode;
+import com.gofar.springreactive.utils.TransactionStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -38,12 +40,12 @@ public class TransactionController {
     }
 
     @GetMapping("/mode/{mode}")
-    public Flux<Transaction> getTransactionByMode(@PathVariable("mode") String mode) {
+    public Flux<Transaction> getTransactionByMode(@PathVariable("mode") TransactionMode mode) {
         return transactionService.getTransactionsByMode(mode);
     }
 
     @GetMapping("/status/{status}")
-    public Flux<Transaction> getTransactionByStatus(@PathVariable("status") String status) {
+    public Flux<Transaction> getTransactionByStatus(@PathVariable("status") TransactionStatus status) {
         return transactionService.getTransactionsByStatus(status);
     }
 

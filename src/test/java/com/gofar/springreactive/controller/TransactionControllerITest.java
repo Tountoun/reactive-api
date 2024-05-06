@@ -4,6 +4,8 @@ import com.gofar.springreactive.SpringReactiveApplication;
 import com.gofar.springreactive.entity.Transaction;
 import com.gofar.springreactive.service.ITransactionService;
 import com.gofar.springreactive.service.impl.TransactionService;
+import com.gofar.springreactive.utils.TransactionMode;
+import com.gofar.springreactive.utils.TransactionStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,7 +82,7 @@ public class TransactionControllerITest {
     @Test
     public void getTransactionByStatusTest() {
         Transaction transaction = getTransaction(7L, "5321", "CANCEL", "CHECK", 4500D, "6332225253", "4832225253", LocalDate.now());
-        Mockito.doReturn(Flux.just(transaction)).when(iTransactionService).getTransactionsByStatus(anyString());
+        Mockito.doReturn(Flux.just(transaction)).when(iTransactionService).getTransactionsByStatus(any(TransactionStatus.class));
 
         client.get()
                 .uri("api/v1/transactions/status/" + transaction.getStatus())
@@ -102,7 +104,7 @@ public class TransactionControllerITest {
     @Test
     public void getTransactionByModeTest() {
         Transaction transaction = getTransaction(7L, "5321", "CANCEL", "CASH", 450000D, "6332225253", "4832225253", LocalDate.now());
-        Mockito.doReturn(Flux.just(transaction)).when(iTransactionService).getTransactionsByMode(anyString());
+        Mockito.doReturn(Flux.just(transaction)).when(iTransactionService).getTransactionsByMode(any(TransactionMode.class));
 
         client.get()
                 .uri("api/v1/transactions/mode/" + transaction.getMode())
@@ -170,8 +172,8 @@ public class TransactionControllerITest {
         return Transaction.builder()
                 .id(id)
                 .reference(reference)
-                .status(status)
-                .mode(mode)
+                .status(TransactionStatus.valueOf(status))
+                .mode(TransactionMode.valueOf(mode))
                 .amount(amount)
                 .creditorAccount(toAccount)
                 .transactionDate(date)
