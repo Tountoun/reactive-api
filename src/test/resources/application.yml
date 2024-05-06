@@ -2,16 +2,14 @@ spring:
   application:
     name: spring-reactive application
   r2dbc:
-    username: postgres
-    password: litt
-    name: flex_bk_db
-    url: r2dbc:postgresql://localhost:5432/${spring.r2dbc.name}
+    username: sa
+    password:
+    name: test_flex_bk_db
+    url: r2dbc:h2:mem:///${spring.r2dbc.name};NON_KEYWORDS=transaction
   profiles:
     active: dev
-  flyway:
-    user: postgres
-    password: litt
-    url: jdbc:postgresql://localhost:5432/${spring.r2dbc.name}
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yml
   jpa:
     hibernate:
       ddl-auto: validate

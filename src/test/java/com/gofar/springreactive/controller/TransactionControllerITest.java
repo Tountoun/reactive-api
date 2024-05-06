@@ -46,7 +46,7 @@ public class TransactionControllerITest {
 
     @Test
     public void getTransactionByIdShouldReturnTransactionWithSameIdTest() {
-        Transaction transaction = getTransaction(1L, "5021", "VALID", "TRANS", 450D, "", "", LocalDate.now());
+        Transaction transaction = getTransaction(1L, "5021", "VALID", "TRANSFER", 450D, "", "", LocalDate.now());
         Mockito.doReturn(Mono.just(transaction)).when(iTransactionService).getTransaction(anyLong());
 
         client.get()
@@ -63,7 +63,7 @@ public class TransactionControllerITest {
 
     @Test
     public void getTransactionByReferenceTest() {
-        Transaction transaction = getTransaction(4L, "5321", "VALID", "TRANS", 4500D, "", "", LocalDate.now());
+        Transaction transaction = getTransaction(4L, "5321", "VALID", "TRANSFER", 4500D, "", "", LocalDate.now());
         Mockito.doReturn(Mono.just(transaction)).when(iTransactionService).getTransactionByReference(anyString());
 
         client.get()
@@ -81,7 +81,7 @@ public class TransactionControllerITest {
 
     @Test
     public void getTransactionByStatusTest() {
-        Transaction transaction = getTransaction(7L, "5321", "CANCEL", "CHECK", 4500D, "6332225253", "4832225253", LocalDate.now());
+        Transaction transaction = getTransaction(7L, "5321", "INVALID", "CHECK", 4500D, "6332225253", "4832225253", LocalDate.now());
         Mockito.doReturn(Flux.just(transaction)).when(iTransactionService).getTransactionsByStatus(any(TransactionStatus.class));
 
         client.get()
@@ -103,7 +103,7 @@ public class TransactionControllerITest {
 
     @Test
     public void getTransactionByModeTest() {
-        Transaction transaction = getTransaction(7L, "5321", "CANCEL", "CASH", 450000D, "6332225253", "4832225253", LocalDate.now());
+        Transaction transaction = getTransaction(7L, "5321", "INVALID", "CASH", 450000D, "6332225253", "4832225253", LocalDate.now());
         Mockito.doReturn(Flux.just(transaction)).when(iTransactionService).getTransactionsByMode(any(TransactionMode.class));
 
         client.get()
@@ -118,14 +118,14 @@ public class TransactionControllerITest {
 
                     Assertions.assertEquals(transaction.getId().toString(), res.get("id").toString());
                     Assertions.assertEquals(transaction.getReference(), res.get("reference"));
-                    Assertions.assertEquals(transaction.getMode(), res.get("mode"));
+                    Assertions.assertEquals(transaction.getMode().name(), res.get("mode"));
                     Assertions.assertEquals(transaction.getAmount().toString(), res.get("amount").toString());
                 });
     }
 
     @Test
     public void saveTransactionTest() {
-        Transaction transaction = getTransaction(7L, "5321", "CANCEL", "CASH", 450000D, "6332225253", "4832225253", LocalDate.now());
+        Transaction transaction = getTransaction(7L, "5321", "INVALID", "CASH", 450000D, "6332225253", "4832225253", LocalDate.now());
         Mockito.doReturn(Mono.just(transaction)).when(iTransactionService).saveTransaction(any(Transaction.class));
 
         client.post()
@@ -144,7 +144,7 @@ public class TransactionControllerITest {
 
     @Test
     public void getAllTransactionsTest() {
-        Transaction transaction = getTransaction(7L, "5321", "CANCEL", "CASH", 450000D, "6332225253", "4832225253", LocalDate.now());
+        Transaction transaction = getTransaction(7L, "5321", "INVALID", "CASH", 450000D, "6332225253", "4832225253", LocalDate.now());
         Mockito.doReturn(Flux.just(transaction)).when(iTransactionService).getAllTransactions();
 
         client.get()
